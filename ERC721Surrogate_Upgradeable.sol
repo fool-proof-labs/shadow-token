@@ -2,13 +2,18 @@
 // SPDX-License-Identifier: BSD-3
 pragma solidity ^0.8.0;
 
-import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/utils/Strings.sol";
+import "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol";
+import "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol";
+import "@openzeppelin/contracts-upgradeable/proxy/utils/UUPSUpgradeable.sol";
 
 import "./IERC721Principal.sol";
 import "./IERC721Surrogate.sol";
 
-contract ERC721Surrogate is IERC721Surrogate, Ownable {
+import "hardhat/console.sol";
+
+
+contract ERC721Surrogate_Upgradeable is IERC721Surrogate, Initializable, UUPSUpgradeable, OwnableUpgradeable {
   using Strings for uint256;
 
   error NotSupported();
@@ -21,15 +26,19 @@ contract ERC721Surrogate is IERC721Surrogate, Ownable {
 
   IERC721Principal public PRINCIPAL;
 
-  string internal _tokenURIPrefix = "";
-  string internal _tokenURISuffix = "";
+  string internal _tokenURIPrefix;
+  string internal _tokenURISuffix;
   mapping( address => int256 ) internal _balances;
   mapping( uint256 => Token ) internal _tokens;
 
+//https://etherscan.io/address/0x70be4e3761188d0a8c525e54bb81c4ea97712de4
+  function initialize(IERC721Principal _principal) public initializer {
+    __Ownable_init();
+    __UUPSUpgradeable_init();
 
-  constructor(IERC721Principal _principal)
-    Ownable(){
     PRINCIPAL = _principal;
+    _tokenURIPrefix = "";
+    _tokenURISuffix = "";
   }
 
 
@@ -193,5 +202,7 @@ contract ERC721Surrogate is IERC721Surrogate, Ownable {
 
 
   //internal - admin
-  function _authorizeUpgrade(address) internal onlyOwner {}
+  function _authorizeUpgrade(address) internal override onlyOwner {
+    console.log( "owner check" );
+  }
 }
