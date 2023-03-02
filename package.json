@@ -1,0 +1,30 @@
+{
+  "name": "extensible-nft",
+  "version": "1.0.0",
+  "description": "With one simple transaction, you can protect your community from scams and provide true Web3 token-gating.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fool-proof-labs/shadow-token.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/fool-proof-labs/shadow-token/issues"
+  },
+  "homepage": "https://github.com/fool-proof-labs/shadow-token#readme",
+  "dependencies": {
+    "@nomiclabs/hardhat-truffle5": "^2.0.7",
+    "@nomiclabs/hardhat-web3": "^2.0.0",
+    "@openzeppelin/contracts": "^4.8.1",
+    "@openzeppelin/contracts-upgradeable": "^4.8.1",
+    "@truffle/hdwallet-provider": "^2.1.7",
+    "hardhat": "^2.12.7",
+    "hardhat-gas-reporter": "^1.0.9",
+    "solidity-coverage": "^0.8.2",
+    "web3": "^1.8.2"
+  }
+}

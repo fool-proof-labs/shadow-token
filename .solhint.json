@@ -1,0 +1,10 @@
+{
+  "ref": "https://github.com/protofire/solhint/blob/master/docs/rules.md",
+  "extends": "solhint:recommended",
+  "rules": {
+    "compiler-version": ["error", "^0.8.0"],
+    "func-visibility": ["warn", { "ignoreConstructors": true }],
+    "reason-string": ["off", {"maxLength": 60}],
+    "not-rely-on-time": ["off"]
+  }
+}
