@@ -1,5 +1,5 @@
 
-// SPDX-License-Identifier: BSD-3
+// SPDX-License-Identifier: UNLICENSED
 pragma solidity ^0.8.9;
 
 interface IOwnable{

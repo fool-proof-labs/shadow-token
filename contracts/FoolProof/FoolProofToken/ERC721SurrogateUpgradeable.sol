@@ -1,5 +1,5 @@
 
-// SPDX-License-Identifier: BSD-3
+// SPDX-License-Identifier: UNLICENSED
 pragma solidity ^0.8.9;
 
 import {IERC165} from "@openzeppelin/contracts/utils/introspection/IERC165.sol";
