@@ -2,10 +2,14 @@
 // SPDX-License-Identifier: BSD-3
 pragma solidity ^0.8.0;
 
-import "@openzeppelin/contracts/token/ERC721/extensions/IERC721Metadata.sol";
-import "@openzeppelin/contracts/token/ERC721/extensions/IERC721Enumerable.sol";
+import {IERC721Metadata} from "@openzeppelin/contracts/token/ERC721/extensions/IERC721Metadata.sol";
+import {IERC721Enumerable} from "@openzeppelin/contracts/token/ERC721/extensions/IERC721Enumerable.sol";
 
 interface IERC721Surrogate is IERC721Metadata, IERC721Enumerable {
+  error AlreadyOwner();
+  error NotAuthorized();
+  error NotSupported();
+
   //IERC721Surrogate
   function initialize(address _principal) external;
 
@@ -22,6 +26,8 @@ interface IERC721Surrogate is IERC721Metadata, IERC721Enumerable {
   function unsetSurrogates(uint256[] calldata tokenIds) external;
 
   function getPrincipal() external view returns(address);
+  function implementation() external view returns(uint8);
+  function version() external view returns(uint8);
 
 
   //IERC721

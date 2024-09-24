@@ -2,16 +2,18 @@
 // SPDX-License-Identifier: BSD-3
 pragma solidity ^0.8.9;
 
-import "@openzeppelin/contracts/access/Ownable.sol";
-import "@openzeppelin/contracts/utils/Strings.sol";
+import {IERC165} from "@openzeppelin/contracts/utils/introspection/IERC165.sol";
+import {IERC721, IERC721Metadata} from "@openzeppelin/contracts/token/ERC721/extensions/IERC721Metadata.sol";
+import {IERC721Enumerable} from "@openzeppelin/contracts/token/ERC721/extensions/IERC721Enumerable.sol";
 
-import "./IERC721Principal.sol";
-import "./IERC721Surrogate.sol";
+import {Ownable} from "@openzeppelin/contracts/access/Ownable.sol";
+import {Strings} from "@openzeppelin/contracts/utils/Strings.sol";
+
+import {IERC721Principal} from "./IERC721Principal.sol";
+import {IERC721Surrogate} from "./IERC721Surrogate.sol";
 
 contract ERC721Surrogate is IERC721Surrogate, Ownable {
   using Strings for uint256;
-
-  error NotSupported();
 
   struct Token {
     address principal;
@@ -33,7 +35,7 @@ contract ERC721Surrogate is IERC721Surrogate, Ownable {
   uint256 internal _totalSupply;
 
   constructor(address _principal)
-    Ownable()
+    Ownable(msg.sender)
   {
     initialize(_principal);
     version = 2;
@@ -69,7 +71,7 @@ contract ERC721Surrogate is IERC721Surrogate, Ownable {
       emit Transfer(address(0), PRINCIPAL.ownerOf(tokenId), tokenId);
   }
 
-  function softSync(uint[] calldata tokenIds) external {
+  function softSync(uint256[] calldata tokenIds) external {
     for(uint256 i; i < tokenIds.length; ++i){
       softSync(tokenIds[i]);
     }
@@ -102,11 +104,15 @@ contract ERC721Surrogate is IERC721Surrogate, Ownable {
     }
   }
 
+
   // view
   function getPrincipal() external view returns(address){
     return address(PRINCIPAL);
   }
 
+  function implementation() external view returns(uint8) {
+    return 1;
+  }
 
 
   //ERC721 :: nonpayable
@@ -182,23 +188,23 @@ contract ERC721Surrogate is IERC721Surrogate, Ownable {
 
   //ERC721Enumerable :: view
   function tokenByIndex(uint256 index) external view returns (uint256) {
-    try PRINCIPAL.tokenByIndex(index) returns (uint256 at) {
-      return at;
-    }
-    // solhint-disable-next-line no-empty-blocks
-    catch {}
-
-    try PRINCIPAL.ownerOf(index) returns (address) {
-      return index;
-    }
-    // solhint-disable-next-line no-empty-blocks
-    catch {}
-
     revert NotSupported();
+
+    // try PRINCIPAL.tokenByIndex(index) returns (uint256 at) {
+    //   return at;
+    // }
+    // // solhint-disable-next-line no-empty-blocks
+    // catch {}
+
+    // try PRINCIPAL.ownerOf(index) returns (address) {
+    //   return index;
+    // }
+    // // solhint-disable-next-line no-empty-blocks
+    // catch {}
   }
 
   function tokenOfOwnerByIndex(address owner, uint256 index) external view returns (uint256) {
-    require(balanceOf(owner) > index, "ERC721Enumerable: owner index out of bounds" );
+    require(balanceOf(owner) > index, "ERC721Enumerable: owner index out of bounds");
 
     uint256 count;
     uint256 tokenId;
@@ -214,16 +220,16 @@ contract ERC721Surrogate is IERC721Surrogate, Ownable {
   }
 
   function totalSupply() public view returns (uint256){
-    try PRINCIPAL.totalSupply() returns (uint256 supply) {
-      return supply;
-    }
-    // solhint-disable-next-line no-empty-blocks
-    catch {}
-
-    if(_totalSupply > 0)
-      return _totalSupply;
-
     revert NotSupported();
+
+    // try PRINCIPAL.totalSupply() returns (uint256 supply) {
+    //   return supply;
+    // }
+    // // solhint-disable-next-line no-empty-blocks
+    // catch {}
+
+    // if(_totalSupply > 0)
+    //   return _totalSupply;
   }
 
 

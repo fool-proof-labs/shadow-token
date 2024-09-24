@@ -7,4 +7,7 @@ coverage
 
 .DS_Store
 .env.json
+.keys.json
+bookmarks.json
 coverage.json
+truffle-config.js
