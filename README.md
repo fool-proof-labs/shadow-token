@@ -1,5 +1,5 @@
 # Making Blockchain Foolproof
-[![Patent](https://img.shields.io/badge/US_Patent-12293358_B2-blue)](https://www.uspto.gov/patents/search/patent-public-search)
+[![Patent](https://img.shields.io/badge/US_Patent-12293358_B2-blue)]([https://www.uspto.gov/patents/search/patent-public-search](https://ppubs.uspto.gov/api/pdf/downloadPdf/12293358?requestToken=eyJzdWIiOiI2M2M1MmIzMi1iZGU5LTQwNzYtOWE3ZC0yZWExMTk3MGMzZmEiLCJ2ZXIiOiIxNGQwOTllYS01ZWMyLTQyZjEtYjY2OC1mNGVkNDg4MmFmMmEiLCJleHAiOjB9))
 [![Published](https://img.shields.io/badge/Published-May_06,_2025-green)](https://www.uspto.gov/patents/search/patent-public-search)
 
 > The Foundation for Change
